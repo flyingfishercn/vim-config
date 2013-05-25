@@ -1,0 +1,4 @@
+tagbar.vmb: call delete('/work/harris/.home/.vim/autoload/tagbar.vim')|call delete('/work/harris/.home/.vim/doc/tagbar.txt')|call delete('/work/harris/.home/.vim/plugin/tagbar.vim')|call delete('/work/harris/.home/.vim/syntax/tagbar.vim')
+colourscheme_bandit.vba: call delete('/home/flyingfisher/.vim/colors/bandit.vim')|call delete('/home/flyingfisher/.vim/syntax/colours_bandit.vim')|call delete('/home/flyingfisher/.vim/ftplugin/colours_bandit.vim')
+rainbow_parenthsis-4.0.vba: call delete('/home/flyingfisher/.vim/autoload/rainbow_parenthsis.vim')|call delete('/home/flyingfisher/.vim/doc/rainbow_parenthsis.txt')|call delete('/home/flyingfisher/.vim/plugin/rainbow_parenthsis.vim')|call delete('/home/flyingfisher/.vim/rainbow_parenthsis_options.vim')
+supertab.vmb: call delete('/home/flyingfisher/.vim/doc/supertab.txt')|call delete('/home/flyingfisher/.vim/plugin/supertab.vim')
