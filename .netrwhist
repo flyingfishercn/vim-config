@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Work1/13009_12083_svn1703/mediatek/platform/mt6589/hardware/camera/hal/adapter/oppo'
-let g:netrw_dirhist_2='.'
-let g:netrw_dirhist_3='/Work1/13009_12083_svn1703/mediatek/platform/mt6589/hardware/camera/hal/adapter/oppo'
