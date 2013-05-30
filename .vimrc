@@ -104,6 +104,7 @@ nmap bp :bp<CR><cr>
 "nmap bd :bd<CR> //dangerous
 
 "pathogen
+source ~/.vim/bundle/pathogen.vim/plugin/pathogen.vim
 call pathogen#infect()
 call pathogen#runtime_append_all_bundles()
 "call pathogen#helptags()
