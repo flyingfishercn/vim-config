@@ -1,0 +1,57 @@
+[submodule "bundle/a.vim"]
+	path = bundle/a.vim
+	url = git://github.com/vim-scripts/a.vim.git
+[submodule "bundle/bandit.vim"]
+	path = bundle/bandit.vim
+	url = git://github.com/vim-scripts/bandit.vim.git
+[submodule "bundle/bufexplorer.zip"]
+	path = bundle/bufexplorer.zip
+	url = git://github.com/vim-scripts/bufexplorer.zip.git
+[submodule "bundle/CRefVim"]
+	path = bundle/CRefVim
+	url = git://github.com/vim-scripts/CRefVim.git
+[submodule "bundle/cscope.vim"]
+	path = bundle/cscope.vim
+	url = git://github.com/vim-scripts/cscope.vim.git
+[submodule "bundle/c.vim"]
+	path = bundle/c.vim
+	url = git://github.com/vim-scripts/c.vim.git
+[submodule "bundle/genutils.git"]
+	path = bundle/genutils.git
+	url = git://github.com/vim-scripts/genutils.git
+[submodule "bundle/lookupfile"]
+	path = bundle/lookupfile
+	url = git://github.com/vim-scripts/lookupfile.git
+[submodule "bundle/nerdcommenter"]
+	path = bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "bundle/OmniCppComplete"]
+	path = bundle/OmniCppComplete
+	url = git://github.com/vim-scripts/OmniCppComplete.git
+[submodule "bundle/pathogen.vim"]
+	path = bundle/pathogen.vim
+	url = git://github.com/tpope/vim-pathogen.git
+[submodule "bundle/python.vim"]
+	path = bundle/python.vim
+	url = git://github.com/vim-scripts/python.vim.git
+[submodule "bundle/rainbow_parentheses.vim"]
+	path = bundle/rainbow_parentheses.vim
+	url = git://github.com/vim-scripts/rainbow_parentheses.vim.git
+[submodule "bundle/repeat.vim"]
+	path = bundle/repeat.vim
+	url = https://github.com/vim-scripts/repeat.vim
+[submodule "bundle/SuperTab.git"]
+	path = bundle/SuperTab.git
+	url = git://github.com/vim-scripts/SuperTab.git
+[submodule "bundle/surround.vim"]
+	path = bundle/surround.vim
+	url = git://github.com/vim-scripts/surround.vim.git
+[submodule "bundle/tabular.git"]
+	path = bundle/tabular.git
+	url = https://github.com/godlygeek/tabular.git
+[submodule "bundle/Tagbar.vim"]
+	path = bundle/Tagbar.vim
+	url = git://github.com/vim-scripts/Tagbar.git
