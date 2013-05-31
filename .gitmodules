@@ -55,3 +55,24 @@
 [submodule "bundle/Tagbar.vim"]
 	path = bundle/Tagbar.vim
 	url = git://github.com/vim-scripts/Tagbar.git
+[submodule "bundle/YankRing.vim"]
+	path = bundle/YankRing.vim
+	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule "bundle/buffergrep.vim"]
+	path = bundle/buffergrep.vim
+	url = git://github.com/vim-scripts/buffergrep.git
+[submodule "bundle/taglist.vim"]
+	path = bundle/taglist.vim
+	url = git://github.com/vim-scripts/taglist.vim.git
+[submodule "bundle/vim-indent-guides.git"]
+	path = bundle/vim-indent-guides.git
+	url = git://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "bundle/vimspell.vim"]
+	path = bundle/vimspell.vim
+	url = git://github.com/vim-scripts/vimspell.git
+[submodule "bundle/winmanager.vim"]
+	path = bundle/winmanager.vim
+	url = git://github.com/vim-scripts/winmanager.git
+[submodule "bundle/ctags.vim"]
+	path = bundle/ctags.vim
+	url = git://github.com/vim-scripts/ctags.vim.git
