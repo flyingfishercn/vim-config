@@ -53,7 +53,6 @@ set autoread
 let mapleader = ","
 let g:mapleader = ","
 
-" Fast saving
 noremap <leader>/ ^i//<esc>
 nmap <leader>w :w!<cr>
 nmap <leader>q :q<cr>
@@ -166,6 +165,7 @@ nnoremap <silent> <leader>lk :LookupFile<cr>
 imap <unique> <expr> <silent> <leader>lk (pumvisible()?”\<C-E>”:”").”\<Esc>\<Plug>LookupFile”
 nmap <silent> <leader>ll :LUBufs<cr>
 nmap <silent> <leader>lw :LUWalk<cr>
+"close lookupfile by type esc key twice
 if filereadable("./filenametags")                "设置tag文件的名字
     let g:LookupFile_TagExpr = '"./filenametags"'
 endif
@@ -215,17 +215,6 @@ nmap <F6> :cn<cr>
 nmap <F7> :cp<cr>
 
 
-"Cscope
-set cscopequickfix=s-!,c-,d-,i-,t-,e-
-"nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-"nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-"nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-"nmap <F3> :strftime("%Y_%m_%d-%H:%M"<CR>
-iab xdate <c-r>=strftime("20%y/%m/%d")<cr>
 
 " Enable filetype plugins
 "set nocp
@@ -373,6 +362,15 @@ set showcmd
 set ignorecase
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
+set cscopequickfix=s-!,c-,d-,i-,t-,e-
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>:cw<CR>
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>:cw<CR>
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>:cw<CR>
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>:cw<CR>
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>:cw<CR>
+nmap <C-\>f :cs find g <C-R>=expand("<cword>")<CR><CR>:cw<CR>
+nmap <C-\>i :cs find i ^<C-R>=expand("<cword>")<CR><CR>:cw<CR>
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>:cw<CR>
 
 "add any database in current directory
 if filereadable("cscope.out")
@@ -515,3 +513,6 @@ endfunction
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap il( :<c-u>normal! f)vi(<cr>
 onoremap ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
+"Cscope
+"nnoremap <F3> :strftime("%Y_%m_%d-%H:%M"<CR>
+"iab xdate <c-r>=strftime("20%y/%m/%d")<cr>
