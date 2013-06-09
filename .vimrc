@@ -260,34 +260,103 @@ function! Cppsearch1()
     call append(wincursor+1, g:winword)
 endfunction
 
-map cadd :call Cppadd()<cr>
-function! Cppadd()
-    let wincursor = line(".")
-    call setline(wincursor, "")
-    call append(wincursor, "#ifdef VENDOR_EDIT")
-    call append(wincursor+1, "//zhiquan.huang@MMApp.Camera, ".strftime("%Y-%m-%d")." Add for yv12 postview resize")
-    call append(wincursor+2, "#endif /* VENDOR_EDIT */")
-    call append(wincursor+3, "")
+"map cadd :call Cppadd()<cr>
+"function! Cppadd()
+    "let wincursor = line(".")
+    "call setline(wincursor, "")
+    "call append(wincursor, "#ifdef VENDOR_EDIT")
+    "call append(wincursor+1, "//zhiquan.huang@MMApp.Camera, ".strftime("%Y-%m-%d")." Add for yv12 postview resize")
+    "call append(wincursor+2, "#endif /* VENDOR_EDIT */")
+    "call append(wincursor+3, "")
+"endfunction
+
+"map cmod :call Cppmod()<cr>
+"function! Cppmod()
+    "let wincursor = line(".")
+    "call setline(wincursor,"#ifndef VENDOR_EDIT")
+    "call append(wincursor, "//zhiquan.huang@MMApp.Camera, ".strftime("%Y-%m-%d")." Modify for reason")
+    "call append(wincursor+1, "#else /* VENDOR_EDIT */")
+    "call append(wincursor+2, "#endif /* VENDOR_EDIT */")
+    "call append(wincursor+3, "")
+"endfunction
+
+"map cdel :call Cppdel()<cr>
+"function! Cppdel()
+    "let wincursor = line(".")
+    "call setline(wincursor, "")
+    "call append(wincursor, "#ifndef VENDOR_EDIT")
+    "call append(wincursor+1, "//zhiquan.huang@MMApp.Camera, ".strftime("%Y-%m-%d")." Remove for reason")
+    "call append(wincursor+2, "#endif /* VENDOR_EDIT */")
+    "call append(wincursor+3, "")
+"endfunction
+
+
+"添加代码加入vendor_edit注释
+vmap cadd <esc>:call Cppadd(1)<cr>'<<cr>kk$
+imap <leader>cadd <esc>:call Cppadd(0)<cr>jjj$a
+nmap cadd :call Cppadd(0)<cr>jjj$
+function! Cppadd(isVisual)
+	if a:isVisual
+		let firstLine = line("'<")
+        let lastLine = line("'>")
+		let wincursor = line("'<")-1
+	else	
+		let wincursor = line(".")
+		let firstLine = line(".")
+        let lastLine = line(".")
+	endif
+    "call setline(wincursor, "")
+	call append(wincursor, "")
+	call append(wincursor+1, "#ifdef VENDOR_EDIT")
+	call append(wincursor+2, "//xiaojun.lv@Prd.BasicDrv.Audio, ".strftime("%Y/%m/%d")." add for ")
+	call append(lastLine+3, "#endif /* VENDOR_EDIT */")
+	call append(lastLine+4, "")
 endfunction
 
-map cmod :call Cppmod()<cr>
-function! Cppmod()
-    let wincursor = line(".")
-    call setline(wincursor,"#ifndef VENDOR_EDIT")
-    call append(wincursor, "//zhiquan.huang@MMApp.Camera, ".strftime("%Y-%m-%d")." Modify for reason")
-    call append(wincursor+1, "#else /* VENDOR_EDIT */")
-    call append(wincursor+2, "#endif /* VENDOR_EDIT */")
-    call append(wincursor+3, "")
+"删除代码加入vendor_edit注释
+vmap cdel <esc>:call Cppdel(1)<cr>'<<cr>kk$
+"imap <leader>cdel <esc>:call Cppdel(0)<cr>jjj$a
+"nmap cdel :call Cppdel(0)<cr>jjj$
+function! Cppdel(isVisual)
+	if a:isVisual
+		let firstLine = line("'<")
+        let lastLine = line("'>")
+		let wincursor = line("'<")-1
+	else	
+		let wincursor = line(".")
+		let firstLine = line(".")
+        let lastLine = line(".")
+	endif
+    "call setline(wincursor, "")
+	call append(wincursor, "")
+	call append(wincursor+1, "#ifndef VENDOR_EDIT")
+	call append(wincursor+2, "//xiaojun.lv@Prd.BasicDrv.Audio, ".strftime("%Y/%m/%d")." del for ")
+	call append(lastLine+3, "#endif /* VENDOR_EDIT */")
+	call append(lastLine+4, "")
 endfunction
 
-map cdel :call Cppdel()<cr>
-function! Cppdel()
-    let wincursor = line(".")
-    call setline(wincursor, "")
-    call append(wincursor, "#ifndef VENDOR_EDIT")
-    call append(wincursor+1, "//zhiquan.huang@MMApp.Camera, ".strftime("%Y-%m-%d")." Remove for reason")
-    call append(wincursor+2, "#endif /* VENDOR_EDIT */")
-    call append(wincursor+3, "")
+"修改代码加入vendor_edit注释
+vmap cmod <esc>:call Cppmod(1)<cr>'><cr>j
+"imap <leader>cmod <esc>:call Cppmod(0)<cr>jjj$a
+"nmap cmod :call Cppmod(0)<cr>jjj$
+function! Cppmod(isVisual)
+	if a:isVisual
+		let firstLine = line("'<")
+        let lastLine = line("'>")
+		let wincursor = line("'<")-1
+	else	
+		let wincursor = line(".")
+		let firstLine = line(".")
+        let lastLine = line(".")
+	endif
+    "call setline(wincursor, "")
+	call append(wincursor, "")
+	call append(wincursor+1, "#ifndef VENDOR_EDIT")
+	call append(wincursor+2, "//xiaojun.lv@Prd.BasicDrv.Audio, ".strftime("%Y/%m/%d")." mod for ")
+	call append(lastLine+3, "#else /* VENDOR_EDIT */")
+	call append(lastLine+4, "")
+	call append(lastLine+5, "#endif /* VENDOR_EDIT */")
+	call append(lastLine+6, "")
 endfunction
 
 map cstack :call Cppstack()<cr>
