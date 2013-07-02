@@ -58,8 +58,8 @@
     syntax on                   " Syntax highlighting
     syntax enable
 
-    set mouse=a                 " Automatically enable mouse usage
-    set mousehide               " Hide the mouse cursor while typing
+    "set mouse=a                 " Automatically enable mouse usage
+    "set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
     if has ('x') && has ('gui') " On Linux use + register for copy-paste
@@ -84,7 +84,7 @@
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
-    set spell                           " Spell checking on
+    "set spell                           " Spell checking on
     set hidden                          " Allow buffer switching without saving
     set nocompatible
     "set relativenumber
@@ -164,7 +164,7 @@
     set winminheight=0              " Windows can be 0 line high
     set ignorecase                  " Case insensitive search
     set smartcase                   " Case sensitive when uc present
-    set title                       "show file's title in terminal
+    "set title                       "show file's title in terminal
     set wildmenu                    " Show list instead of just completing in command mode
     set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
@@ -175,8 +175,8 @@
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     nmap <silent> <leader>s :set nolist!<CR>    " make tabs and trailing spaces visible when requested
 
-    highlight SpellErrors  guibg=Red guifg=Black
-    highlight SpellErrors ctermfg=Red guifg=Red cterm=underline gui=underline term=reverse
+    "highlight SpellErrors  guibg=Red guifg=Black
+    "highlight SpellErrors ctermfg=Red guifg=Red cterm=underline gui=underline term=reverse
     "set autochdir
     let g:indent_guides_guide_size=1
 
@@ -213,6 +213,7 @@
         "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
         " Remove trailing whitespaces and ^M chars
         autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+        autocmd BufWritePre * call RemoveTrailingWhitespace()
         autocmd FileType go autocmd BufWritePre <buffer> Fmt
         autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
         "au FileType c,cpp setlocal comments-=:// comments-=:/**/  comments+=f://
@@ -810,6 +811,18 @@
             " clean up: restore previous search history, and cursor position
             let @/=_s
             call cursor(l, c)
+        endif
+    endfunction
+
+    " Remove trailing whitespace when writing a buffer, but not for diff files.
+    " From: Vigil <vim5632@rainslide.net>
+    function RemoveTrailingWhitespace()
+        if &ft != "diff"
+            let b:curcol = col(".")
+            let b:curline = line(".")
+            silent! %s/\s\+$//
+            silent! %s/\(\s*\n\)\+\%$//
+            call cursor(b:curline, b:curcol)
         endif
     endfunction
 
