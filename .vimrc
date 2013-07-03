@@ -372,10 +372,37 @@
         nnoremap <C-y> 3<C-y>
         nnoremap <C-j> 3j
         nnoremap <C-k> 3k
+        nnoremap <leader>cl :silent! %s/^ *//
 
     " }}}
 
     " Plugins {{{
+
+    " ZoomWin{
+
+    " }
+
+    "yankring{
+
+    "settings to try to get yank ring to not mess with default vim
+    " functionality so much.
+    let g:yankring_manage_numbered_reg = 0
+    let g:yankring_clipboard_monitor = 0
+    let g:yankring_paste_check_default_buffer = 0
+
+    " Don't let yankring use f, t, /. It doesn't record them properly in macros
+    " and that's my most common use. Yankring also blocks macros of macros (it
+    " prompts for the macro register), but removing @ doesn't fix that :(
+    let g:yankring_zap_keys = ''
+
+    " Disable yankring for regular p/P. This preserves vim's normal behavior, but
+    " I can still use C-p/C-n to cycle through yankring.
+    let g:yankring_paste_n_bkey = ''
+    let g:yankring_paste_n_akey = ''
+    let g:yankring_paste_v_key = ''
+    vnoremap ya "ay
+    map pa "ap
+    "}
 
     "pathogen{
     source ~/.vim/bundle/pathogen.vim/autoload/pathogen.vim
@@ -837,7 +864,7 @@
 
     ""nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
     "let g:winword = "hello"
-    "map ch :call Cppsearch()<cr> 
+    "map ch :call Cppsearch()<cr>
     "function! Cppsearch()
         "let wincursor = line(".")
         "let g:winword=expand("<cword>")
@@ -847,7 +874,7 @@
         ""call append(wincursor+1, g:winword)
     "endfunction
 
-    "map cx :call Cppsearch1()<cr> 
+    "map cx :call Cppsearch1()<cr>
     "function! Cppsearch1()
         "let wincursor = line(".")
         "call setline(wincursor, "")
@@ -895,7 +922,7 @@
             let firstLine = line("'<")
             let lastLine = line("'>")
             let wincursor = line("'<")-1
-        else	
+        else
             let wincursor = line(".")
             let firstLine = line(".")
             let lastLine = line(".")
@@ -917,7 +944,7 @@
             let firstLine = line("'<")
             let lastLine = line("'>")
             let wincursor = line("'<")-1
-        else	
+        else
             let wincursor = line(".")
             let firstLine = line(".")
             let lastLine = line(".")
