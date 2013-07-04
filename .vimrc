@@ -230,6 +230,10 @@
         nmap <leader>q :q<cr>
         nmap <leader>wq :wq!<cr>
         nmap <silent> <leader>fe :Sexplore!<cr>
+        nmap \o :set paste!<CR>
+        nmap \l :setlocal number!<CR>
+        nmap \q :nohlsearch<CR>
+        nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
         "补全功能
         inoremap <C-]>             <C-X><C-]>
@@ -250,9 +254,6 @@
         nmap bn :bn<CR><cr>
         nmap bp :bp<CR><cr>
         "nmap bd :bd<CR> //dangerous
-        " Wrapped lines goes down/up to next row, rather than next line in file.
-        nnoremap j gj
-        nnoremap k gk
         " Yank from the cursor to the end of the line, to be consistent with C and D.
         nnoremap Y y$
         " Visual shifting (does not exit Visual mode)
@@ -271,6 +272,7 @@
         map <leader>l :wincmd l<CR>
 
         "nnoremap <leader>v <C-w>v
+        " Wrapped lines goes down/up to next row, rather than next line in file.
         nnoremap j gj
         nnoremap k gk
         nnoremap gj j
@@ -378,6 +380,20 @@
 
     " Plugins {{{
 
+    "ctrlp{
+    nmap ; :CtrlPBuffer<CR>
+    let g:ctrlp_map = '<Leader>t'
+    let g:ctrlp_match_window_bottom = 0
+    let g:ctrlp_match_window_reversed = 0
+    let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+    let g:ctrlp_working_path_mode = 0
+    let g:ctrlp_dotfiles = 0
+    let g:ctrlp_switch_buffer = 0
+    "}
+   " xptemplate{
+    "<c-\> and <tab>
+    " }
+
     " ZoomWin{
 
     " }
@@ -400,9 +416,14 @@
     let g:yankring_paste_n_bkey = ''
     let g:yankring_paste_n_akey = ''
     let g:yankring_paste_v_key = ''
+
+    vnoremap yd "ad
     vnoremap ya "ay
     map pa "ap
     "}
+
+    "imap <C-space> <Plug>snipMateNextOrTrigger
+    "smap <C-space> <Plug>snipMateNextOrTrigger
 
     "pathogen{
     source ~/.vim/bundle/pathogen.vim/autoload/pathogen.vim
@@ -601,7 +622,7 @@
     let g:tagbar_width = 40
     let g:tagbar_autofocus = 0
     autocmd VimEnter * nested :call tagbar#autoopen(1)
-    nmap <F4> :TagbarToggle<CR>
+    "nmap <F4> :TagbarToggle<CR>
 
     " If using go please install the gotags program using the following
     " go install github.com/jstemmer/gotags
@@ -726,12 +747,16 @@
     "endif
     " }
 
+
     " SuperTab {
     let g:SuperTabRetainCompletionType = 2
     let g:SuperTabDefaultCompletionType = "<C-X><C-N>"
     set completeopt=longest,menu
     nnoremap ,cd :cd %:p:h<CR>
     "}
+
+    ino <c-j> <c-r>=TriggerSnippet()<cr>
+    snor <c-j> <esc>i<right><c-r>=TriggerSnippet()<cr>
 
     " UndoTree {
     nnoremap <Leader>u :UndotreeToggle<CR>
