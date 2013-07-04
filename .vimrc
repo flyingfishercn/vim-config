@@ -285,9 +285,9 @@
 
         nnoremap <silent> <F5> : YRShow<cr>
         inoremap <silent> <F5> <esc>: YRShow<cr>
-        inoremap <F1> <esc>
-        nnoremap <F1> <esc>
-        vnoremap <F1> <esc>
+        "inoremap <F1> <esc>
+        "nnoremap <F1> <esc>
+        "vnoremap <F1> <esc>
         "nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>''
         nnoremap <leader>l yypVr=
         "nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -490,7 +490,7 @@
     let Tlist_WinWidth=28
     let Tlist_Use_Horiz_Window=0
     let Tlist_Exit_OnlyWindow=0
-    "map <F4> :TlistToggle<CR>
+    map <F4> :TlistToggle<CR>
     "}
 
 
