@@ -368,6 +368,7 @@
         "map <silent> <leader>ss :source ~/.vimrc<cr>
         "Fast editing of .vimrc
         nnoremap <silent> <leader>ee :e ~/.vimrc<cr>
+        nnoremap <silent> <leader>eg :e ~/.vim/.gitmodules<cr>
         "When .vimrc is edited, reload it
         autocmd! bufwritepost .vimrc source ~/.vimrc
         nnoremap <C-e> 3<C-e>
@@ -379,9 +380,17 @@
     " }}}
 
     " Plugins {{{
+    " powerline{
+    set guifont=PowerlineSymbols\ for\ Powerline
+    set nocompatible
+    set t_Co=256
+    let g:Powerline_symbols = 'fancy'
+    " }
 
     "ctrlp{
-    nmap ; :CtrlPBuffer<CR>
+    let g:ctrlp_map = '<c-p>'
+    let g:ctrlp_cmd = 'CtrlP'
+    "nmap ; :CtrlPBuffer<CR>
     let g:ctrlp_map = '<Leader>t'
     let g:ctrlp_match_window_bottom = 0
     let g:ctrlp_match_window_reversed = 0
@@ -490,7 +499,7 @@
     let Tlist_WinWidth=28
     let Tlist_Use_Horiz_Window=0
     let Tlist_Exit_OnlyWindow=0
-    map <F4> :TlistToggle<CR>
+    "map <F4> :TlistToggle<CR>
     "}
 
 
@@ -588,7 +597,7 @@
     let NERDTreeWinSize=31
     "nnoremap <F2> :NERDTreeToggle ./<CR>
     "map <leader>d :execute 'NERDTreeToggle' . getcwd()<CR>
-    silent! nmap <C-p> :NERDTreeToggle<CR>
+    "silent! nmap <C-p> :NERDTreeToggle<CR>
     silent! map <F3> :NERDTreeFind<CR>
     let g:NERDTreeMapActivateNode="<F3>"
     let g:NERDTreeMapPreview="<F5>"
@@ -622,7 +631,7 @@
     let g:tagbar_width = 40
     let g:tagbar_autofocus = 0
     autocmd VimEnter * nested :call tagbar#autoopen(1)
-    "nmap <F4> :TagbarToggle<CR>
+    nmap <F4> :TagbarToggle<CR>
 
     " If using go please install the gotags program using the following
     " go install github.com/jstemmer/gotags
