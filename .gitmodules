@@ -85,9 +85,6 @@
 [submodule "bundle/zoomwin"]
 	path = bundle/zoomwin
 	url = https://github.com/vim-scripts/ZoomWin.git
-[submodule "bundle/snipMate"]
-	path = bundle/snipMate
-	url = https://github.com/vim-scripts/snipMate.git
 [submodule "bundle/xptemplate"]
 	path = bundle/xptemplate
 	url = https://github.com/vim-scripts/xptemplate.git
