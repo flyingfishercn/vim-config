@@ -388,18 +388,40 @@
     " }
 
     "ctrlp{
-    let g:ctrlp_map = '<c-p>'
-    let g:ctrlp_cmd = 'CtrlP'
     "nmap ; :CtrlPBuffer<CR>
-    let g:ctrlp_map = '<Leader>t'
+    "let g:ctrlp_map = '<Leader>t'
+    "Normal CtrlP
+    nnoremap <silent> <Leader>f :CtrlP<cr>
+    nnoremap <silent> <Leader>b :CtrlPBuffer<cr>
+    nnoremap <silent> <Leader>m :CtrlPMRU<cr>
+    "Flush then CtrlP
+    "
+    nnoremap <silent> <leader>F :ClearCtrlPCache<cr>\|:CtrlP<cr>
+    "nnoremap <silent> <leader>T :CtrlPClearAllCaches<cr>\|:CtrlP<cr>
     let g:ctrlp_match_window_bottom = 0
     let g:ctrlp_match_window_reversed = 0
-    let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+    "let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+    set wildignore+=*/tmp/*,*/patch*/*,*.so,*.swp,*.zip,*.mk,*.img,*.jar,*.dll,*.svn,*.png,*.jpg,*.bmp,*.mk,*.class,*.html,*cscope*,*.text,*.txt,*.doc,*.docx,*~
+    let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$\|out$\|tools$\|abi$',
+                \ 'file': '\.exe$\|\.so$\|\.dat$'
+                \ }
+    let g:ctrlp_max_files=0
     let g:ctrlp_working_path_mode = 0
+    let g:ctrlp_working_path_mode = 'ra'
+    "let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
+    "let g:ctrlp_user_command = "find %s -type f | egrep -v '/\.(git|hg|svn)|solr|tmp/' | egrep -v '\.(png|exe|jpg|gif|jar|class|swp|swo|log|gitkep|keepme|so|o)$'"
+    let g:ctrlp_user_command = "find %s -type f | egrep -v '/\.(git|hg|svn)|solr|tmp/' | egrep -v '\.(png|exe|jpg|gif|jar|class|swp|swo|log|gitkep|keepme|so|o)$'"
+    " 此行设置根目录标记为 .crtlp
+    "let g:ctrlp_user_command = ['ctrlptags', 'cat %s/ctrlptags']
+    "let g:ctrlp_root_markers = ['ctrlptags']
+    let g:ctrlp_clear_cache_on_exit=0
+    "let g:ctrlp_root_markers = ['.ctrlp']
     let g:ctrlp_dotfiles = 0
     let g:ctrlp_switch_buffer = 0
+    let g:ctrlp_regexp = 1
     "}
-   " xptemplate{
+    " xptemplate{
     "<c-\> and <tab>
     " }
 
