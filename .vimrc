@@ -345,14 +345,14 @@
 
         "nnoremap <leader><space> :noh<cr>
 
-        "nnoremap <up> <nop>
-        "nnoremap <left> <nop>
-        "nnoremap <right> <nop>
-        "nnoremap <down> <nop>
-        "inoremap <up> <nop>
-        "inoremap <left> <nop>
-        "inoremap <right> <nop>
-        "inoremap <down> <nop>
+        nnoremap <up> <nop>
+        nnoremap <left> <nop>
+        nnoremap <right> <nop>
+        nnoremap <down> <nop>
+        inoremap <up> <nop>
+        inoremap <left> <nop>
+        inoremap <right> <nop>
+        inoremap <down> <nop>
         "hidden cmd prompt
         "set cmdheight=2
 
@@ -1069,17 +1069,34 @@
     endfunction
 
         " }}}
+        nnoremap <silent> n n:doautocmd TagbarAutoCmds CursorHold<CR>
+        nnoremap <silent> N N:doautocmd TagbarAutoCmds CursorHold<CR>
+        " Search for selected text, forwards or backwards.
+        vnoremap <silent> * :<C-U>
+                    \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+                    \gvy/<C-R><C-R>=substitute(
+                    \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+                    \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-    nnoremap / /\v
-    vnoremap / /\v
-    hi Search term=standout ctermfg=0 ctermbg=3
-    let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
+        vnoremap <silent> # :<C-U>
+                    \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+                    \gvy?<C-R><C-R>=substitute(
+                    \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+                    \gV:call setreg('"', old_reg, old_regtype)<CR>
+        vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
-    func! MyCtrlPMappings()
-        nnoremap <buffer> <silent> <c-@> :call <sid>DeleteBuffer()<cr>
-    endfunc
+        hi Search term=standout ctermfg=0 ctermbg=3
+        hi link EasyMotionTarget ErrorMsg
+        hi link EasyMotionShade  Comment
+        let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 
-    func! s:DeleteBuffer()
-        exec "bd" fnamemodify(getline('.')[2:], ':p')
-        exec "norm \<F5>"
-    endfunc
+        func! MyCtrlPMappings()
+            nnoremap <buffer> <silent> <c-@> :call <sid>DeleteBuffer()<cr>
+        endfunc
+
+        func! s:DeleteBuffer()
+            exec "bd" fnamemodify(getline('.')[2:], ':p')
+            exec "norm \<F5>"
+        endfunc
+        nnoremap / /\v
+        vnoremap / /\v
