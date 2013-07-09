@@ -232,7 +232,7 @@
         nmap <silent> <leader>fe :Sexplore!<cr>
         nmap \o :set paste!<CR>
         nmap \l :setlocal number!<CR>
-        nmap \q :nohlsearch<CR>
+        "nmap \q :nohlsearch<CR>
         nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
         "补全功能
@@ -480,7 +480,7 @@
     "quickfix window{
     nmap cwl :cw<cr>
     nmap ccl :ccl<cr>
-    nnoremap <F2> :buffers<CR>:buffer<Space>
+    "nnoremap <F2> :buffers<CR>:buffer<Space>
     "nmap <F5> :BufExplorer<cr>
     nmap <F6> :cn<cr>
     nmap <F7> :cp<cr>
@@ -1068,4 +1068,18 @@
         endif
     endfunction
 
-    " }}}
+        " }}}
+
+    nnoremap / /\v
+    vnoremap / /\v
+    hi Search term=standout ctermfg=0 ctermbg=3
+    let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
+
+    func! MyCtrlPMappings()
+        nnoremap <buffer> <silent> <c-@> :call <sid>DeleteBuffer()<cr>
+    endfunc
+
+    func! s:DeleteBuffer()
+        exec "bd" fnamemodify(getline('.')[2:], ':p')
+        exec "norm \<F5>"
+    endfunc
