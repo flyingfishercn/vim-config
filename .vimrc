@@ -380,6 +380,10 @@
     " }}}
 
     " Plugins {{{
+    " quickbuf{
+    let g:qb_hotkey = "<F1>"
+    " }
+
     "showmarks{
     " Enable ShowMarks
     let showmarks_enable = 0
