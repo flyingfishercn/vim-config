@@ -1,6 +1,6 @@
 "{{{ fold config
-    set foldmarker={{{,}}}
-    set foldmethod=marker
+    "set foldmarker={{{,}}}
+    "set foldmethod=marker
 "}}}
 
 " Environment {{{
@@ -380,6 +380,26 @@
     " }}}
 
     " Plugins {{{
+    "showmarks{
+    " Enable ShowMarks
+    let showmarks_enable = 0
+    " Show which marks
+    let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    " Ignore help, quickfix, non-modifiable buffers
+    let showmarks_ignore_type = "hqm"
+    " Hilight lower & upper marks
+    let showmarks_hlline_lower = 1
+    let showmarks_hlline_upper = 1
+    " For showmarks plugin
+    hi ShowMarksHLl ctermbg=Yellow   ctermfg=Black  guibg=#FFDB72    guifg=Black
+    hi ShowMarksHLu ctermbg=Magenta  ctermfg=Black  guibg=#FFB3FF    guifg=Black
+    "<Leader>mt   - 打开/关闭ShowMarks插件
+    "<Leader>mo   - 强制打开ShowMarks插件
+    "<Leader>mh   - 清除当前行的标记
+    "<Leader>ma   - 清除当前缓冲区中所有的标记
+    "<Leader>mm   - 在当前行打一个标记，使用下一个可用的标记名
+    "}
+
     " powerline{
     set guifont=PowerlineSymbols\ for\ Powerline
     set nocompatible
@@ -592,8 +612,8 @@
 
     " NerdTree {
     map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-    map <leader>e :NERDTreeFind<CR>
-    nmap <leader>nt :NERDTreeFind<CR>
+    "map <leader>e :NERDTreeFind<CR>
+    "nmap <leader>nt :NERDTreeFind<CR>
 
     let NERDTreeShowBookmarks=1
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
@@ -617,7 +637,8 @@
     silent! map <F3> :NERDTreeFind<CR>
     let g:NERDTreeMapActivateNode="<F3>"
     let g:NERDTreeMapPreview="<F5>"
-    let g:netrw_winsize = 30            "open current directory where the present file exist
+    let g:netrw_winsize = 40            "open current directory where the present file exist
+    autocmd Filetype nerdtree nnoremap <buffer> <leader>b :Bookmark<space>
     " }
 
     " Tabularize {
