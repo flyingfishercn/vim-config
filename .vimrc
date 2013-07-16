@@ -283,8 +283,8 @@
         nnoremap / /\v
         vnoremap / /\v
 
-        nnoremap <silent> <F5> : YRShow<cr>
-        inoremap <silent> <F5> <esc>: YRShow<cr>
+        nnoremap <buffer> <silent> <F5> : YRShow<cr>
+        inoremap <buffer> <silent> <F5> <esc>: YRShow<cr>
         "inoremap <F1> <esc>
         "nnoremap <F1> <esc>
         "vnoremap <F1> <esc>
@@ -510,9 +510,10 @@
     let g:LookupFile_PreservePatternHistory = 1     "保存查找历史
     let g:LookupFile_AlwaysAcceptFirst = 1          "回车打开第一个匹配项目
     let g:LookupFile_AllowNewFiles = 0              "不允许创建不存在的文件
-    nnoremap <silent> <leader>lk :LookupFile<cr>
+    nnoremap <buffer> <silent> <leader>lk :LookupFile<cr>
     "nmap <unique> <silent> <leader>lk <Plug>LookupFile
-    imap <unique> <expr> <silent> <leader>lk (pumvisible()?”\<C-E>”:”").”\<Esc>\<Plug>LookupFile”
+    "imap <buffer> <unique> <expr> <silent> <leader>lk (pumvisible()?”\<C-E>”:”").”\<Esc>\<Plug>LookupFile”
+    "
     nmap <silent> <leader>ll :LUBufs<cr>
     nmap <silent> <leader>lw :LUWalk<cr>
     "close lookupfile by type esc key twice
@@ -918,7 +919,7 @@
 
     " Remove trailing whitespace when writing a buffer, but not for diff files.
     " From: Vigil <vim5632@rainslide.net>
-    function RemoveTrailingWhitespace()
+    function! RemoveTrailingWhitespace()
         if &ft != "diff"
             let b:curcol = col(".")
             let b:curline = line(".")
