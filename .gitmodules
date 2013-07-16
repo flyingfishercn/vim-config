@@ -79,12 +79,6 @@
 [submodule "bundle/easy-motion"]
 	path = bundle/easy-motion
 	url = https://github.com/Lokaltog/vim-easymotion
-[submodule "bundle/indent-guides"]
-	path = bundle/indent-guides
-	url = https://github.com/vim-scripts/Indent-Guides
-[submodule "bundle/zoomwin"]
-	path = bundle/zoomwin
-	url = https://github.com/vim-scripts/ZoomWin.git
 [submodule "bundle/xptemplate"]
 	path = bundle/xptemplate
 	url = https://github.com/vim-scripts/xptemplate.git
@@ -118,3 +112,6 @@
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
+[submodule "bundle/ZoomWin"]
+	path = bundle/ZoomWin
+	url = https://github.com/regedarek/ZoomWin.git
