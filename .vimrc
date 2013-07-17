@@ -561,28 +561,28 @@
     "}
 
     " OmniComplete {
-        if has("autocmd") && exists("+omnifunc")
-            autocmd Filetype *
-                        \if &omnifunc == "" |
-                        \setlocal omnifunc=syntaxcomplete#Complete |
-                        \endif
-        endif
+        "if has("autocmd") && exists("+omnifunc")
+            "autocmd Filetype *
+                        "\if &omnifunc == "" |
+                        "\setlocal omnifunc=syntaxcomplete#Complete |
+                        "\endif
+        "endif
 
-        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+        "hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+        "hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+        "hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
-        " Some convenient mappings
-        inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-        inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-        inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-        inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-        inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-        inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+        "" Some convenient mappings
+        "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+        "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+        "inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+        "inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+        "inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+        "inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 
-        " Automatically open and close the popup menu / preview window
-        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-        set completeopt=menu,preview,longest
+        "" Automatically open and close the popup menu / preview window
+        "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+        "set completeopt=menu,preview,longest
     " }
 
     " Ctags {
@@ -703,16 +703,15 @@
     "}
 
     " neocomplcache {
-    "if count(g:spf13_bundle_groups, 'neocomplcache')
     let g:acp_enableAtStartup = 0
     let g:neocomplcache_enable_at_startup = 1
     let g:neocomplcache_enable_camel_case_completion = 1
     let g:neocomplcache_enable_smart_case = 1
-
     let g:neocomplcache_enable_underbar_completion = 1
     let g:neocomplcache_enable_auto_delimiter = 1
-    let g:neocomplcache_max_list = 15
     let g:neocomplcache_force_overwrite_completefunc = 1
+    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_enable_auto_select = 1
 
     " SuperTab like snippets behavior.
     imap <silent><expr><TAB> neosnippet#expandable() ?
@@ -733,34 +732,21 @@
     endif
     let g:neocomplcache_keyword_patterns._ = '\h\w*'
 
-    " Plugin key-mappings.
-
-    " These two lines conflict with the default digraph mapping of <C-K>
-    " If you prefer that functionality, add
-    " let g:spf13_no_neosnippet_expand = 1
-    " in your .vimrc.bundles.local file
-
-    if !exists('g:spf13_no_neosnippet_expand')
-        imap <C-k> <Plug>(neosnippet_expand_or_jump)
-        smap <C-k> <Plug>(neosnippet_expand_or_jump)
-    endif
-
-    inoremap <expr><C-g> neocomplcache#undo_completion()
-    inoremap <expr><C-l> neocomplcache#complete_common_string()
-    inoremap <expr><CR> neocomplcache#complete_common_string()
-
     " <TAB>: completion.
     inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 
     " <CR>: close popup
     " <s-CR>: close popup and save indent.
-    inoremap <expr><s-CR> pumvisible() ? neocomplcache#close_popup()"\<CR>" : "\<CR>"
-    inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    inoremap <buffer> <expr><s-CR> pumvisible() ? neocomplcache#close_popup(): "\<CR>\<CR>"
+    inoremap <buffer> <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    inoremap <buffer> <expr><SPACE> pumvisible() ? neocomplcache#cancel_popup() : "\<SPACE>"
 
     " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y> neocomplcache#close_popup()
+    inoremap <buffer> <expr><BS> neocomplcache#smart_close_popup() "\<C-h>"
+    inoremap <buffer> <expr><C-h> neocomplcache#smart_close_popup() "\<C-h>"
+    inoremap <buffer> <expr><C-y> neocomplcache#smart_close_popup()
+    inoremap <buffer> <expr><C-e>  neocomplcache#cancel_popup()
 
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -1087,8 +1073,55 @@
             return
         endif
     endfunction
+    "进行版权声明的设置
+    "添加或更新头
+    map <F9> :call TitleDet()<cr>'s
+    function! AddTitle()
+        call append(0,"/*=============================================================================")
+        call append(1,"#")
+        call append(2,"# Author: dantezhu - dantezhu@vip.qq.com")
+        call append(3,"#")
+        call append(4,"# QQ : 327775604")
+        call append(5,"#")
+        call append(6,"# Last modified: ".strftime("%Y-%m-%d %H:%M"))
+        call append(7,"#")
+        call append(8,"# Filename: ".expand("%:t"))
+        call append(9,"#")
+        call append(10,"# Description: ")
+        call append(11,"#")
+        call append(12,"=============================================================================*/")
+        echohl WarningMsg | echo "Successful in adding the copyright." | echohl None
+    endf
+    "更新最近修改时间和文件名
+    function! UpdateTitle()
+        normal m'
+        execute '/# *Last modified:/s@:.*$@\=strftime(":\t%Y-%m-%d %H:%M")@'
+        normal ''
+        normal mk
+        execute '/# *Filename:/s@:.*$@\=":\t\t".expand("%:t")@'
+        execute "noh"
+        normal 'k
+        echohl WarningMsg | echo "Successful in updating the copy right." | echohl None
+    endfunction
+    "判断前10行代码里面，是否有Last modified这个单词，
+    "如果没有的话，代表没有添加过作者信息，需要新添加；
+    "如果有的话，那么只需要更新即可
+    function! TitleDet()
+        let n=1
+        "默认为添加
+        while n < 20
+            let line = getline(n)
+            if line =~ '^\#\s*\S*Last\smodified:\S*.*$'
+                call UpdateTitle()
+                return
+            endif
+            let n = n + 1
+        endwhile
+        call AddTitle()
+    endfunction
 
-        " }}}
+     " }}}
+
         nnoremap <silent> n n:doautocmd TagbarAutoCmds CursorHold<CR>
         nnoremap <silent> N N:doautocmd TagbarAutoCmds CursorHold<CR>
         " Search for selected text, forwards or backwards.
