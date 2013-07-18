@@ -157,7 +157,7 @@
 
     set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
-    set nu                          " Line numbers on
+    set nu
     set showmatch                   " Show matching brackets/parenthesis
     set incsearch                   " Find as you type search
     set hlsearch                    " Highlight search terms
@@ -198,6 +198,8 @@
 
 
     inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
+    set splitbelow
+    set splitright
 
     " }}}
 
@@ -373,8 +375,21 @@
         autocmd! bufwritepost .vimrc source ~/.vimrc
         nnoremap <C-e> 3<C-e>
         nnoremap <C-y> 3<C-y>
-        nnoremap <C-j> 3j
-        nnoremap <C-k> 3k
+        let g:onoff = 0
+        function MultiScroll()
+            if g:onoff == 1
+                let g:onoff = 0
+                noremap j 5j
+                noremap k 5k
+            else
+                let g:onoff = 1
+                noremap j j
+                noremap k k
+            endif
+        endfunction
+
+        map <C-j> :call MultiScroll()<RETURN>
+
         nnoremap <leader>cl :silent! %s/^ *//
 
     " }}}
