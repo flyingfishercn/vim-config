@@ -130,3 +130,15 @@
 [submodule "bundle/YouCompleteMe"]
 	path = bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "bundle/textobj-word-column"]
+	path = bundle/textobj-word-column
+	url = https://github.com/coderifous/textobj-word-column.vim.git
+[submodule "bundle/vim-fanfingtastic"]
+	path = bundle/vim-fanfingtastic
+	url = https://github.com/dahu/vim-fanfingtastic.git
+[submodule "bundle/vim-seek"]
+	path = bundle/vim-seek
+	url = https://github.com/goldfeld/vim-seek.git
+[submodule "bundle/vim-autoformat"]
+	path = bundle/vim-autoformat
+	url = https://github.com/Chiel92/vim-autoformat.git
