@@ -279,7 +279,7 @@ function! Mosh_Tab_Or_Complete()
     nnoremap k gk
     nnoremap gj j
     nnoremap gk k
-    nnoremap ; :
+    "nnoremap ; :
 
     "use sane regexes
     nnoremap / /\v
@@ -355,6 +355,10 @@ function! Mosh_Tab_Or_Complete()
     inoremap <left> <nop>
     inoremap <right> <nop>
     inoremap <down> <nop>
+    vnoremap <up> <nop>
+    vnoremap <left> <nop>
+    vnoremap <right> <nop>
+    vnoremap <down> <nop>
     "hidden cmd prompt
     "set cmdheight=2
 
@@ -377,12 +381,12 @@ function! Mosh_Tab_Or_Complete()
     nnoremap <C-y> 3<C-y>
     let g:OnOff = 0
     function! MultiScroll()
-        if g:OnOff == 1
-            let g:OnOff = 0
+        if g:OnOff == 0
+            let g:OnOff = 1
             noremap j 5j
             noremap k 5k
         else
-            let g:OnOff = 1
+            let g:OnOff = 0
             noremap j j
             noremap k k
         endif
@@ -394,18 +398,28 @@ function! Mosh_Tab_Or_Complete()
 
     " }}}
 
-    " Plugins {{{
+    nnoremap [f [[?(<cr>b
+
+    "vi textobj-word-column.vim{
+        "vic     visually select a column.
+        "cic     change a column.
+        "dac     delete a column.
+        "vici    prepend new text to a column.
+        "vica    append new text to a column.
+        "vic     visually select a word based colunn.
+    "}
+
     " autoformat{
-    noremap <F2> :Autoformat<CR><CR>
-    "autocmd FileType * let "g:formatprg_".&filetype = "astyle"
-    "autocmd FileType * let "g:formatprg_args_".&filetype = "--mode=cs --style=ansi -pcUHs4"
+    noremap <f2> :Autoformat<cr><cr>
+    "autocmd filetype * let "g:formatppg_".&filetype = "astyle"
+    "autocmd filetype * let "g:formatprg_args_".&filetype = "--mode=cs --style=ansi -pcuhs4"
     "echo &filetype tell you the suffix of formatprg_
     let g:formatprg_c = "astyle"
-    let g:formatprg_args_c = "--mode=cs --style=ansi -fDpcUs4"
-    "let g:formatprg_args_cs = "--mode=cs --style=ansi -TU4pb"
+    let g:formatprg_args_c = "--mode=cs --style=ansi -fdpcus4"
+    "let g:formatprg_args_cs = "--mode=cs --style=ansi -tu4pb"
     " }
     " quickbuf{
-    let g:qb_hotkey = "<F1>"
+    let g:qb_hotkey = "<f1>"
     " }
 
     "showmarks{
@@ -1245,92 +1259,93 @@ function! Mosh_Tab_Or_Complete()
                 return
             endif
             let n = n + 1
-        endwhile
-        call AddTitle()
-    endfunction
+    endwhile
+    call AddTitle()
+endfunction
 
-    " }}}
+" }}}
 
-    nnoremap <silent> n n:doautocmd TagbarAutoCmds CursorHold<CR>
-    nnoremap <silent> N N:doautocmd TagbarAutoCmds CursorHold<CR>
-    " Search for selected text, forwards or backwards.
-    vnoremap <silent> * :<C-U>
-                \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-                \gvy/<C-R><C-R>=substitute(
-                \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-                \gV:call setreg('"', old_reg, old_regtype)<CR>
+nnoremap <silent> n n:doautocmd TagbarAutoCmds CursorHold<CR>
+nnoremap <silent> N N:doautocmd TagbarAutoCmds CursorHold<CR>
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+            \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+            \gvy/<C-R><C-R>=substitute(
+            \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+            \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-    vnoremap <silent> # :<C-U>
-                \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-                \gvy?<C-R><C-R>=substitute(
-                \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-                \gV:call setreg('"', old_reg, old_regtype)<CR>
-    vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+vnoremap <silent> # :<C-U>
+            \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+            \gvy?<C-R><C-R>=substitute(
+            \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+            \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
-    hi Search term=standout ctermfg=0 ctermbg=3
-    hi link EasyMotionTarget ErrorMsg
-    hi link EasyMotionShade  Comment
-    let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
+hi Search term=standout ctermfg=0 ctermbg=3
+hi link EasyMotionTarget ErrorMsg
+hi link EasyMotionShade  Comment
+let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 
-    func! MyCtrlPMappings()
-        nnoremap <buffer> <silent> <c-@> :call <sid>DeleteBuffer()<cr>
-    endfunc
+func! MyCtrlPMappings()
+    nnoremap <buffer> <silent> <c-@> :call <sid>DeleteBuffer()<cr>
+endfunc
 
-    func! s:DeleteBuffer()
-        exec "bd" fnamemodify(getline('.')[2:], ':p')
-        exec "norm \<F5>"
-    endfunc
-    nnoremap / /\v
-    vnoremap / /\v
-    highlight Pmenu ctermbg=238 gui=bold
-    hi Pmenu      ctermfg=darkmagenta    ctermbg=Blue cterm=None guifg=Cyan guibg=DarkBlue
-    hi PmenuSel   ctermfg=White   ctermbg=Blue cterm=Bold guifg=White guibg=DarkBlue gui=Bold
-    hi PmenuSbar                  ctermbg=Cyan            guibg=Cyan
-    hi PmenuThumb ctermfg=White                           guifg=White
+func! s:DeleteBuffer()
+    exec "bd" fnamemodify(getline('.')[2:], ':p')
+    exec "norm \<F5>"
+endfunc
+nnoremap / /\v
+vnoremap / /\v
+highlight Pmenu ctermbg=238 gui=bold
+hi Pmenu      ctermfg=darkmagenta    ctermbg=Blue cterm=None guifg=Cyan guibg=DarkBlue
+hi PmenuSel   ctermfg=White   ctermbg=Blue cterm=Bold guifg=White guibg=DarkBlue gui=Bold
+hi PmenuSbar                  ctermbg=Cyan            guibg=Cyan
+hi PmenuThumb ctermfg=White                           guifg=White
 
-    "set runtimepath-=~/.vim/bundle/YouCompleteMe
-    "set runtimepath-=~/.vim/bundle/QuickBuf
-    "set runtimepath-=~/.vim/bundle/ack
-    "set runtimepath-=~/.vim/bundle/auto-pairs
-    "set runtimepath-=~/.vim/bundle/a.vim
-    "set runtimepath-=~/.vim/bundle/bandit.vim
-    "set runtimepath-=~/.vim/bundle/bufexplorer.zip
-    "set runtimepath-=~/.vim/bundle/buffergrep.vim
-    "set runtimepath-=~/.vim/bundle/Command-T
-    "set runtimepath-=~/.vim/bundle/CRefVim
-    "set runtimepath-=~/.vim/bundle/cscope.vim
-    "set runtimepath-=~/.vim/bundle/ctags.vim
-    "set runtimepath-=~/.vim/bundle/ctrlp
-    "set runtimepath-=~/.vim/bundle/c.vim
-    "set runtimepath-=~/.vim/bundle/easy-motion
-    "set runtimepath-=~/.vim/bundle/genutils.git
-    "set runtimepath-=~/.vim/bundle/lookupfile
-    "set runtimepath-=~/.vim/bundle/matchit
-    "set runtimepath-=~/.vim/bundle/nerdcommenter
-    "set runtimepath-=~/.vim/bundle/nerdtree
-    "set runtimepath-=~/.vim/bundle/OmniCppComplete
-    "set runtimepath-=~/.vim/bundle/pathogen.vim
-    "set runtimepath-=~/.vim/bundle/powerline
-    "set runtimepath-=~/.vim/bundle/pydiction
-    "set runtimepath-=~/.vim/bundle/python.vim
-    "set runtimepath-=~/.vim/bundle/QuickBuf
-    "set runtimepath-=~/.vim/bundle/rainbow_parentheses.vim
-    "set runtimepath-=~/.vim/bundle/repeat.vim
-    "set runtimepath-=~/.vim/bundle/SearchComplete
-    "set runtimepath-=~/.vim/bundle/ShowMarks
-    "set runtimepath-=~/.vim/bundle/SuperTab.git
-    "set runtimepath-=~/.vim/bundle/surround.vim
-    "set runtimepath-=~/.vim/bundle/tabular.git
-    "set runtimepath-=~/.vim/bundle/Tagbar.vim
-    "set runtimepath-=~/.vim/bundle/taglist.vim
-    "set runtimepath-=~/.vim/bundle/undotree
-    "set runtimepath-=~/.vim/bundle/vim-airline
-    "set runtimepath-=~/.vim/bundle/vim-autoformat
-    "set runtimepath-=~/.vim/bundle/vim-indent-guides.git
-    "set runtimepath-=~/.vim/bundle/vim-numbertoggle
-    "set runtimepath-=~/.vim/bundle/vimspell.vim
-    "set runtimepath-=~/.vim/bundle/winmanager.vim
-    "set runtimepath-=~/.vim/bundle/xptemplate
-    "set runtimepath-=~/.vim/bundle/YankRing.vim
-    "set runtimepath-=~/.vim/bundle/YouCompleteMe
-    "set runtimepath-=~/.vim/bundle/ZoomWin
+
+"set runtimepath-=~/.vim/bundle/YouCompleteMe
+"set runtimepath-=~/.vim/bundle/QuickBuf
+"set runtimepath-=~/.vim/bundle/ack
+"set runtimepath-=~/.vim/bundle/auto-pairs
+"set runtimepath-=~/.vim/bundle/a.vim
+"set runtimepath-=~/.vim/bundle/bandit.vim
+"set runtimepath-=~/.vim/bundle/bufexplorer.zip
+"set runtimepath-=~/.vim/bundle/buffergrep.vim
+"set runtimepath-=~/.vim/bundle/Command-T
+"set runtimepath-=~/.vim/bundle/CRefVim
+"set runtimepath-=~/.vim/bundle/cscope.vim
+"set runtimepath-=~/.vim/bundle/ctags.vim
+"set runtimepath-=~/.vim/bundle/ctrlp
+"set runtimepath-=~/.vim/bundle/c.vim
+"set runtimepath-=~/.vim/bundle/easy-motion
+"set runtimepath-=~/.vim/bundle/genutils.git
+"set runtimepath-=~/.vim/bundle/lookupfile
+"set runtimepath-=~/.vim/bundle/matchit
+"set runtimepath-=~/.vim/bundle/nerdcommenter
+"set runtimepath-=~/.vim/bundle/nerdtree
+"set runtimepath-=~/.vim/bundle/OmniCppComplete
+"set runtimepath-=~/.vim/bundle/pathogen.vim
+"set runtimepath-=~/.vim/bundle/powerline
+"set runtimepath-=~/.vim/bundle/pydiction
+"set runtimepath-=~/.vim/bundle/python.vim
+"set runtimepath-=~/.vim/bundle/QuickBuf
+"set runtimepath-=~/.vim/bundle/rainbow_parentheses.vim
+"set runtimepath-=~/.vim/bundle/repeat.vim
+"set runtimepath-=~/.vim/bundle/SearchComplete
+"set runtimepath-=~/.vim/bundle/ShowMarks
+"set runtimepath-=~/.vim/bundle/SuperTab.git
+"set runtimepath-=~/.vim/bundle/surround.vim
+"set runtimepath-=~/.vim/bundle/tabular.git
+"set runtimepath-=~/.vim/bundle/Tagbar.vim
+"set runtimepath-=~/.vim/bundle/taglist.vim
+"set runtimepath-=~/.vim/bundle/undotree
+"set runtimepath-=~/.vim/bundle/vim-airline
+"set runtimepath-=~/.vim/bundle/vim-autoformat
+"set runtimepath-=~/.vim/bundle/vim-indent-guides.git
+"set runtimepath-=~/.vim/bundle/vim-numbertoggle
+"set runtimepath-=~/.vim/bundle/vimspell.vim
+"set runtimepath-=~/.vim/bundle/winmanager.vim
+"set runtimepath-=~/.vim/bundle/xptemplate
+"set runtimepath-=~/.vim/bundle/YankRing.vim
+"set runtimepath-=~/.vim/bundle/YouCompleteMe
+"set runtimepath-=~/.vim/bundle/ZoomWin
