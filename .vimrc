@@ -100,7 +100,8 @@ set autowrite
 set autowriteall
 set autoread            " Set to auto read when a file is changed from the outside
 set helplang=cn
-set nowrapscan
+"set nowrapscan
+set wrapscan
 set visualbell
 
 
@@ -242,16 +243,16 @@ function! Mosh_Tab_Or_Complete()
     inoremap <C-F>             <C-X><C-F>
     inoremap <C-D>             <C-X><C-D>
     inoremap <C-L>             <C-X><C-L>
-    "inoremap ( ()<ESC>i
-    "inoremap ) <c-r>=ClosePair(')')<CR>
-    "inoremap { {<CR><CR>}<ESC>ki
-    "inoremap } <c-r>=ClosePair('}')<CR>
-    "inoremap [ []<ESC>i
-    "inoremap ] <c-r>=ClosePair(']')<CR>
-    "inoremap < <><ESC>i
-    "inoremap > <c-r>=ClosePair('>')<CR>
-    "inoremap " ""<ESC>i
-    "inoremap ' ''<ESC>i
+    inoremap ( ()<ESC>i
+    inoremap ) <c-r>=ClosePair(')')<CR>
+    inoremap { {<CR><CR>}<ESC>ki
+    inoremap } <c-r>=ClosePair('}')<CR>
+    inoremap [ []<ESC>i
+    inoremap ] <c-r>=ClosePair(']')<CR>
+    inoremap < <><ESC>i
+    inoremap > <c-r>=ClosePair('>')<CR>
+    inoremap " ""<ESC>i
+    inoremap ' ''<ESC>i
     "buffer list
     nmap bn :bn<CR><cr>
     nmap bp :bp<CR><cr>
@@ -269,8 +270,8 @@ function! Mosh_Tab_Or_Complete()
     map zl zL
     map zh zH
     map <leader>h :wincmd h<CR>
-    map <leader>j :wincmd j<CR>
-    map <leader>k :wincmd k<CR>
+    "map <leader>j :wincmd j<CR>
+    "map <leader>k :wincmd k<CR>
     map <leader>l :wincmd l<CR>
 
     "nnoremap <leader>v <C-w>v
@@ -291,7 +292,7 @@ function! Mosh_Tab_Or_Complete()
     "nnoremap <F1> <esc>
     "vnoremap <F1> <esc>
     "nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>''
-    nnoremap <leader>l yypVr=
+    "nnoremap <leader>l yypVr=
     "nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
     "nnoremap <leader>r yypVr=
     nnoremap <leader>r :RainbowParenthesesLoadBraces<cr>
@@ -300,13 +301,9 @@ function! Mosh_Tab_Or_Complete()
 
     nmap tn <C-w>hj<CR>
     nmap tb <C-w>hk<CR>
-    nmap <F8> :A<CR>
     " Keep the cursor in place while joining lines
     nnoremap J mzJ`z
 
-    " Split line (sister to [J]oin lines)
-    " The normal use of S is covered by ccso don't worry about shadowing it.
-    nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w'
 
     runtime macros/matchit.vim
     "map    <tab> %
@@ -415,7 +412,9 @@ function! Mosh_Tab_Or_Complete()
     "autocmd filetype * let "g:formatprg_args_".&filetype = "--mode=cs --style=ansi -pcuhs4"
     "echo &filetype tell you the suffix of formatprg_
     let g:formatprg_c = "astyle"
+    let g:formatprg_java = "astyle"
     let g:formatprg_args_c = "--mode=cs --style=ansi -fdpcus4"
+    let g:formatprg_args_java = "--mode=cs --style=java -fdpcus4"
     "let g:formatprg_args_cs = "--mode=cs --style=ansi -tu4pb"
     " }
     " quickbuf{
@@ -458,16 +457,15 @@ function! Mosh_Tab_Or_Complete()
     "nnoremap <silent> <leader>T :CtrlPClearAllCaches<cr>\|:CtrlP<cr>
     let g:ctrlp_match_window_bottom = 0
     let g:ctrlp_match_window_reversed = 0
-    set wildignore+=/tmp/*,*/patch*/*,*.so,*.swp,*.zip,*.mk,*.img,*.jar,*.dll,*.svn,*.png,*.jpg,*.bmp,*.mk,*.class,*.html,*cscope*,*.text,*.txt,*.doc,*.docx,*~
-
-    "let g:ctrlp_custom_ignore = {
-    "\ 'dir': '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$\|tools$\|abi$\|out$',
-    "\ 'file': '\.exe$\|\.so$\|\.dat$'
-    "\ }
+    set wildignore+=/tmp/*,*/patch*/*,*.so,*.swp,*.rar,*.zip,*.mk,*.img,*.jar,*.dll,*.svn,*.png,*.jpg,*.bmp,*.mk,*.class,*.html,*cscope*,*.text,*.txt,*.doc,*.docx,*~
+    let g:ctrlp_custom_ignore = {
+    \ 'dir': '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$\|tools$\|abi$\|out$',
+    \ 'file': '\.exe$\|\.so$\|\.dat$'
+    \ }
     let g:ctrlp_max_files=0
     let g:ctrlp_working_path_mode = 0
     let g:ctrlp_working_path_mode = 'ra'
-    let g:ctrlp_user_command = "find %s -type f | egrep -v '/\.(git|hg|svn)|solr|tmp|out|data|log|tmp|tools|abi|out' | egrep -v '\.(png|exe|jpg|gif|jar|class|swp|swo|log|gitkep|keepme|so|o)$'"
+    let g:ctrlp_user_command = "find %s -type f | egrep -v '/\.(git|hg|svn)|solr|tmp|out|data|log|tmp|tools|abi|out|bootable|build|dalvik|docs|gdk|libcore|libnativehelper|prebuilts|system|bionic|external|ndk|pdk|device|docs|sdk' | egrep -v '\.(png|exe|jpg|gif|jar|class|swp|swo|log|gitkep|keepme|so|o|rar|tar.gz|jpeg|gif)$'"
     let g:ctrlp_clear_cache_on_exit=0
     let g:ctrlp_dotfiles = 0
     let g:ctrlp_switch_buffer = 0
@@ -477,6 +475,7 @@ function! Mosh_Tab_Or_Complete()
     "let g:ctrlp_root_markers = ['ctrlptags']
     "let g:ctrlp_root_markers = ['.ctrlp']
     "}
+
     " xptemplate{
     "<c-\> and <tab>
     " }
@@ -548,7 +547,8 @@ function! Mosh_Tab_Or_Complete()
     let g:LookupFile_PreservePatternHistory = 1     "保存查找历史
     let g:LookupFile_AlwaysAcceptFirst = 1          "回车打开第一个匹配项目
     let g:LookupFile_AllowNewFiles = 0              "不允许创建不存在的文件
-    nnoremap <buffer> <silent> <leader>lk :LookupFile<cr>
+    "nnoremap <buffer> <silent> <leader>lk :LookupFile<cr>
+    nnoremap <silent> <leader>lk :LookupFile<cr>
     "nmap <unique> <silent> <leader>lk <Plug>LookupFile
     "imap <buffer> <unique> <expr> <silent> <leader>lk (pumvisible()?”\<C-E>”:”").”\<Esc>\<Plug>LookupFile”
     "
@@ -838,72 +838,87 @@ function! Mosh_Tab_Or_Complete()
     "set completeopt-=preview
     ""endif
     " }
-    " neocomplete{
-    "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    "
+    "" neocomplete{
+    ""Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+    "" Disable AutoComplPop.
+    "let g:acp_enableAtStartup = 0
+    "" Use neocomplete.
+    "let g:neocomplete#enable_at_startup = 1
+    "" Use smartcase.
+    "let g:neocomplete#enable_smart_case = 1
+    "" Set minimum syntax keyword length.
+    "let g:neocomplete#sources#syntax#min_keyword_length = 3
+    "let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
+    "" Define dictionary.
+    "let g:neocomplete#sources#dictionary#dictionaries = {
+        "\ 'default' : '',
+        "\ 'vimshell' : $HOME.'/.vimshell_hist',
+        "\ 'scheme' : $HOME.'/.gosh_completions'
+            "\ }
 
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+    "" Define keyword.
+    "if !exists('g:neocomplete#keyword_patterns')
+        "let g:neocomplete#keyword_patterns = {}
+    "endif
+    "let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
+    "" Plugin key-mappings.
+    "inoremap <expr><C-g>     neocomplete#undo_completion()
+    "inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return neocomplete#smart_close_popup() . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplete#close_popup()
-    inoremap <expr><C-e>  neocomplete#cancel_popup()
-    " Close popup by <Space>.
-    inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+    "" Recommended key-mappings.
+    "" <CR>: close popup and save indent.
+    "inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    "function! s:my_cr_function()
+      "return neocomplete#smart_close_popup() . "\<CR>"
+      "" For no inserting <CR> key.
+      ""return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+    "endfunction
+    "" <TAB>: completion.
+    "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    "" <C-h>, <BS>: close popup and delete backword char.
+    "inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    "inoremap <expr><C-y>  neocomplete#close_popup()
+    "inoremap <expr><C-e>  neocomplete#cancel_popup()
+    "" Close popup by <Space>.
+    "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
-    " For cursor moving in insert mode(Not recommended)
-    "inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-    "inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-    "inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-    "inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-    " Or set this.
-    "let g:neocomplete#enable_cursor_hold_i = 1
-    " Or set this.
-    "let g:neocomplete#enable_insert_char_pre = 1
+    "" For cursor moving in insert mode(Not recommended)
+    ""inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+    ""inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+    ""inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+    ""inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+    "" Or set this.
+    ""let g:neocomplete#enable_cursor_hold_i = 1
+    "" Or set this.
+    ""let g:neocomplete#enable_insert_char_pre = 1
 
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
+    "" AutoComplPop like behavior.
+    ""let g:neocomplete#enable_auto_select = 1
 
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+    "" Shell like behavior(not recommended).
+    ""set completeopt+=longest
+    ""let g:neocomplete#enable_auto_select = 1
+    ""let g:neocomplete#disable_auto_complete = 1
+    ""inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
+    "" Enable heavy omni completion.
+    "if !exists('g:neocomplete#sources#omni#input_patterns')
+      "let g:neocomplete#sources#omni#input_patterns = {}
+    "endif
+    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+    "" For perlomni.vim setting.
+    "" https://github.com/c9s/perlomni.vim
+    "let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+    "" }
+
+    "OmniComplete{
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -911,26 +926,15 @@ function! Mosh_Tab_Or_Complete()
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType c setlocal omnifunc=ccomplete#Complete
-    autocmd FileType java set omnifunc=javacomplete#Complete
+    autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    autocmd FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
     autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-    " }
-
+    "}
 
     " SuperTab {
     let g:SuperTabRetainCompletionType = 2
-    let g:SuperTabDefaultCompletionType = "<C-X><C-N>"
+    "let g:SuperTabDefaultCompletionType = "<C-X><C-N>"
+    let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
     set completeopt=longest,menu
     nnoremap ,cd :cd %:p:h<CR>
     "}
@@ -1281,7 +1285,8 @@ vnoremap <silent> # :<C-U>
             \gV:call setreg('"', old_reg, old_regtype)<CR>
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
-hi Search term=standout ctermfg=0 ctermbg=3
+hi Search term=standout ctermfg=4 ctermbg=3
+hi IncSearch ctermfg=4 ctermbg=3
 hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade  Comment
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
@@ -1302,50 +1307,60 @@ hi PmenuSel   ctermfg=White   ctermbg=Blue cterm=Bold guifg=White guibg=DarkBlue
 hi PmenuSbar                  ctermbg=Cyan            guibg=Cyan
 hi PmenuThumb ctermfg=White                           guifg=White
 
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by ccso don't worry about shadowing it.
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w'
+nmap <F8> :A
+
+
+set runtimepath -=~/.vim/bundle/Command-T
+set runtimepath -=~/.vim/bundle/neocomplete
+set runtimepath -=~/.vim/bundle/SearchComplete
+set runtimepath -=~/.vim/bundle/pydiction
+set runtimepath -=~/.vim/bundle/python.vim
+set runtimepath -=~/.vim/bundle/undotree
+set runtimepath -=~/.vim/bundle/vim-airline
+set runtimepath -=~/.vim/bundle/vim-fanfingtastic
+set runtimepath -=~/.vim/bundle/auto-pairs
 
 "set runtimepath-=~/.vim/bundle/YouCompleteMe
-"set runtimepath-=~/.vim/bundle/QuickBuf
-"set runtimepath-=~/.vim/bundle/ack
-"set runtimepath-=~/.vim/bundle/auto-pairs
-"set runtimepath-=~/.vim/bundle/a.vim
-"set runtimepath-=~/.vim/bundle/bandit.vim
-"set runtimepath-=~/.vim/bundle/bufexplorer.zip
-"set runtimepath-=~/.vim/bundle/buffergrep.vim
-"set runtimepath-=~/.vim/bundle/Command-T
-"set runtimepath-=~/.vim/bundle/CRefVim
-"set runtimepath-=~/.vim/bundle/cscope.vim
-"set runtimepath-=~/.vim/bundle/ctags.vim
-"set runtimepath-=~/.vim/bundle/ctrlp
-"set runtimepath-=~/.vim/bundle/c.vim
-"set runtimepath-=~/.vim/bundle/easy-motion
-"set runtimepath-=~/.vim/bundle/genutils.git
-"set runtimepath-=~/.vim/bundle/lookupfile
-"set runtimepath-=~/.vim/bundle/matchit
-"set runtimepath-=~/.vim/bundle/nerdcommenter
-"set runtimepath-=~/.vim/bundle/nerdtree
-"set runtimepath-=~/.vim/bundle/OmniCppComplete
-"set runtimepath-=~/.vim/bundle/pathogen.vim
-"set runtimepath-=~/.vim/bundle/powerline
-"set runtimepath-=~/.vim/bundle/pydiction
-"set runtimepath-=~/.vim/bundle/python.vim
-"set runtimepath-=~/.vim/bundle/QuickBuf
-"set runtimepath-=~/.vim/bundle/rainbow_parentheses.vim
-"set runtimepath-=~/.vim/bundle/repeat.vim
-"set runtimepath-=~/.vim/bundle/SearchComplete
-"set runtimepath-=~/.vim/bundle/ShowMarks
-"set runtimepath-=~/.vim/bundle/SuperTab.git
-"set runtimepath-=~/.vim/bundle/surround.vim
-"set runtimepath-=~/.vim/bundle/tabular.git
-"set runtimepath-=~/.vim/bundle/Tagbar.vim
-"set runtimepath-=~/.vim/bundle/taglist.vim
-"set runtimepath-=~/.vim/bundle/undotree
-"set runtimepath-=~/.vim/bundle/vim-airline
-"set runtimepath-=~/.vim/bundle/vim-autoformat
-"set runtimepath-=~/.vim/bundle/vim-indent-guides.git
-"set runtimepath-=~/.vim/bundle/vim-numbertoggle
-"set runtimepath-=~/.vim/bundle/vimspell.vim
-"set runtimepath-=~/.vim/bundle/winmanager.vim
-"set runtimepath-=~/.vim/bundle/xptemplate
-"set runtimepath-=~/.vim/bundle/YankRing.vim
-"set runtimepath-=~/.vim/bundle/YouCompleteMe
-"set runtimepath-=~/.vim/bundle/ZoomWin
+"set runtimepath -=~/.vim/bundle/ack
+"set runtimepath -=~/.vim/bundle/a.vim
+"set runtimepath -=~/.vim/bundle/bandit.vim
+"set runtimepath -=~/.vim/bundle/bufexplorer.zip
+"set runtimepath -=~/.vim/bundle/buffergrep.vim
+"set runtimepath -=~/.vim/bundle/CRefVim
+"set runtimepath -=~/.vim/bundle/cscope.vim
+"set runtimepath -=~/.vim/bundle/ctags.vim
+"set runtimepath -=~/.vim/bundle/ctrlp
+"set runtimepath -=~/.vim/bundle/OmniCppComplete
+"set runtimepath -=~/.vim/bundle/c.vim
+"set runtimepath -=~/.vim/bundle/easy-motion
+"set runtimepath -=~/.vim/bundle/genutils.git
+"set runtimepath -=~/.vim/bundle/lookupfile
+"set runtimepath -=~/.vim/bundle/matchit
+"set runtimepath -=~/.vim/bundle/nerdcommenter
+"set runtimepath -=~/.vim/bundle/nerdtree
+"set runtimepath -=~/.vim/bundle/pathogen.vim
+"set runtimepath -=~/.vim/bundle/powerline
+"set runtimepath -=~/.vim/bundle/QuickBuf
+"set runtimepath -=~/.vim/bundle/rainbow_parentheses.vim
+"set runtimepath -=~/.vim/bundle/repeat.vim
+"set runtimepath -=~/.vim/bundle/ShowMarks
+"set runtimepath -=~/.vim/bundle/SuperTab.git
+"set runtimepath -=~/.vim/bundle/surround.vim
+"set runtimepath -=~/.vim/bundle/tabular.git
+"set runtimepath -=~/.vim/bundle/Tagbar.vim
+"set runtimepath -=~/.vim/bundle/taglist.vim
+"set runtimepath -=~/.vim/bundle/textobj-word-column
+"set runtimepath -=~/.vim/bundle/vim-autoformat
+"set runtimepath -=~/.vim/bundle/vim-indent-guides.git
+"set runtimepath -=~/.vim/bundle/vim-numbertoggle
+"set runtimepath -=~/.vim/bundle/vim-seek
+"set runtimepath -=~/.vim/bundle/vimspell.vim
+"set runtimepath -=~/.vim/bundle/winmanager.vim
+"set runtimepath -=~/.vim/bundle/xptemplate
+"set runtimepath -=~/.vim/bundle/YankRing.vim
+"set runtimepath -=~/.vim/bundle/YouCompleteMe
+"set runtimepath -=~/.vim/bundle/ZoomWin
+"set runtimepath -=~/.vim/bundle/javacomplete
