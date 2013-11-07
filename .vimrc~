@@ -1312,6 +1312,7 @@ hi PmenuThumb ctermfg=White                           guifg=White
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w'
 nmap <F8> :A
 
+
 set runtimepath -=~/.vim/bundle/Command-T
 set runtimepath -=~/.vim/bundle/neocomplete
 set runtimepath -=~/.vim/bundle/SearchComplete
@@ -1321,7 +1322,6 @@ set runtimepath -=~/.vim/bundle/undotree
 set runtimepath -=~/.vim/bundle/vim-airline
 set runtimepath -=~/.vim/bundle/vim-fanfingtastic
 set runtimepath -=~/.vim/bundle/auto-pairs
-
 
 "set runtimepath-=~/.vim/bundle/YouCompleteMe
 "set runtimepath -=~/.vim/bundle/ack
